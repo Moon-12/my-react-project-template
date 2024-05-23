@@ -1,0 +1,31 @@
+{
+  "signUp": {
+    "heading": "Sign up",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": "Name",
+        "name": "name",
+        "validatorSelector": "freeTextValidation"
+      },
+      {
+        "type": "text",
+        "placeholder": "User Name",
+        "name": "userName",
+        "validatorSelector": "freeTextValidation"
+      },
+      {
+        "type": "password",
+        "placeholder": "Password",
+        "name": "password",
+        "validatorSelector": "passwordTextValidation"
+      },
+      {
+        "type": "password",
+        "placeholder": "Confirm Password",
+        "name": "confirmPassword",
+        "validatorSelector": "confirmPasswordTextValidation"
+      }
+    ]
+  }
+}
