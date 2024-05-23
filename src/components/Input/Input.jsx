@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { findInputError } from "../../utils/findInputError";
+import { findFieldError } from "../../utils/findFieldError";
 import { isFormInvalid } from "../../utils/isFormValid";
 
 const Input = ({ type, placeholder, name, inpValidation }) => {
@@ -8,12 +8,12 @@ const Input = ({ type, placeholder, name, inpValidation }) => {
     formState: { errors },
   } = useFormContext();
 
-  const inputErrors = findInputError(errors, name);
+  const inputErrors = findFieldError(errors, name);
   const isInvalid = isFormInvalid(inputErrors);
 
   return (
     <>
-      {isInvalid && <InputError message={inputErrors.error.message} />}
+      {isInvalid && <FieldError message={inputErrors.error.message} />}
       <input
         type={type}
         placeholder={placeholder}
@@ -26,7 +26,6 @@ const Input = ({ type, placeholder, name, inpValidation }) => {
 
 export default Input;
 
-const InputError = ({ message }) => {
-  console.log("me", message);
+const FieldError = ({ message }) => {
   return <div> {message}</div>;
 };

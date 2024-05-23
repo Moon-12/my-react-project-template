@@ -35,4 +35,12 @@ export const validators = {
       },
     },
   },
+  dropdownValidation: {
+    validation: {
+      required: {
+        value: true,
+        message: "required",
+      },
+    },
+  },
 };

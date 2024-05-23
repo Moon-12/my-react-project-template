@@ -25,6 +25,16 @@
         "placeholder": "Confirm Password",
         "name": "confirmPassword",
         "validatorSelector": "confirmPasswordTextValidation"
+      },
+      {
+        "type": "select",
+        "name": "selectRole",
+        "label": "Select a Role",
+        "options": [
+          { "value": "student", "label": "student" },
+          { "value": "faculty", "label": "faculty" }
+        ],
+        "validatorSelector": "dropdownValidation"
       }
     ]
   }
