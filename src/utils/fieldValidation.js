@@ -19,20 +19,20 @@ export const validators = {
       },
       minLength: {
         value: 8,
-        message: "min 6 characters",
+        message: "min 8 characters",
+      },
+      pattern: {
+        value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+        message:
+          "Password must contain at least one uppercase letter and one special character",
       },
     },
   },
   confirmPasswordTextValidation: {
     validation: {
-      required: {
-        value: true,
-        message: "required",
-      },
-      minLength: {
-        value: 8,
-        message: "min 6 characters",
-      },
+      required: "Please confirm your password",
+      validate: (value, { password }) =>
+        value === password || "Passwords do not match",
     },
   },
   dropdownValidation: {

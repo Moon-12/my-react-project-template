@@ -3,7 +3,10 @@ import uiData from "../env/commonUIMetadata.json";
 import "./SignUpPage.css";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../Input/Input";
-import { validators } from "../../utils/fieldValidation";
+import {
+  confirmPasswordValidation,
+  validators,
+} from "../../utils/fieldValidation";
 import Select from "../Select/Select";
 
 const SignUpPage = () => {
