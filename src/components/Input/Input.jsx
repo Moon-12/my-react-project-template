@@ -18,7 +18,12 @@ const Input = ({ type, placeholder, name, inpValidation }) => {
         type={type}
         placeholder={placeholder}
         name={name}
-        {...register(name, inpValidation.validation)}
+        {...register(
+          name,
+          type === "password"
+            ? inpValidation.validation.required
+            : inpValidation.validation
+        )}
       />
     </>
   );

@@ -4,8 +4,8 @@
     "fields": [
       {
         "type": "text",
-        "placeholder": "Name",
-        "name": "name",
+        "placeholder": "Email",
+        "name": "email",
         "validatorSelector": "freeTextValidation"
       },
       {
@@ -28,13 +28,30 @@
       },
       {
         "type": "select",
-        "name": "selectRole",
+        "name": "role",
         "label": "Select a Role",
         "options": [
           { "value": "student", "label": "student" },
           { "value": "faculty", "label": "faculty" }
         ],
         "validatorSelector": "dropdownValidation"
+      }
+    ]
+  },
+  "login": {
+    "heading": "Login",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": "Email",
+        "name": "email",
+        "validatorSelector": "freeTextValidation"
+      },
+      {
+        "type": "password",
+        "placeholder": "Password",
+        "name": "password",
+        "validatorSelector": "passwordTextValidation"
       }
     ]
   }
