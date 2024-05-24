@@ -4,27 +4,21 @@ import Input from "../Input/Input";
 import { validators } from "../../utils/fieldValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import "./LoginPage.css";
-import axios from "axios";
+import { loginUser } from "../../redux/slice/authSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const methods = useForm();
+  const dispatch = useDispatch();
   const { login } = uiMetaData;
   const navigate = useNavigate();
-  const submit = methods.handleSubmit((data) => {
-    const { email, password } = data;
-    const getData = {
-      email: email,
-      password: password,
-    };
-    axios
-      .post("http://localhost:8080/api/auth/login", getData)
-      .then((res) => {
-        sessionStorage.setItem("authToken", res.data.accessToken);
-        navigate("/user");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const submit = methods.handleSubmit(async (data) => {
+    const resultAction = await dispatch(loginUser({ ...data }));
+    if (loginUser.fulfilled.match(resultAction)) {
+      navigate("/user");
+    } else {
+      console.log(resultAction.payload); // This will contain the error message
+    }
   });
   return (
     <div className="login-container">

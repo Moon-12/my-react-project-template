@@ -7,8 +7,8 @@ import SignUpPage from "./components/SignUpPage/SignUpPage";
 import User from "./components/User/User";
 import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import { PrivateRoutes } from "./components/routes/PrivateRoutes";
+import store from "./redux/store";
+import PrivateRoute from "./components/routes/PrivateRoutes";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +18,7 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         {
-          element: <PrivateRoutes isAuthenticated={false} />,
+          element: <PrivateRoute />,
           children: [{ path: "/user", element: <User /> }],
         },
         { path: "/", element: <Home /> },
