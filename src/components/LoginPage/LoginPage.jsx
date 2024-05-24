@@ -19,7 +19,7 @@ const LoginPage = () => {
     axios
       .post("http://localhost:8080/api/auth/login", getData)
       .then((res) => {
-        console.log(res.data);
+        sessionStorage.setItem("authToken", res.data.accessToken);
         navigate("/user");
       })
       .catch((err) => {
