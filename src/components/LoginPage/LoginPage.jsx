@@ -19,7 +19,7 @@ const LoginPage = () => {
   const submit = methods.handleSubmit(async (data) => {
     const resultAction = await dispatch(loginUser({ ...data }));
     if (loginUser.fulfilled.match(resultAction)) {
-      navigate("/user");
+      navigate("/landing-page");
     } else {
       console.log(resultAction.payload); // This will contain the error message
     }

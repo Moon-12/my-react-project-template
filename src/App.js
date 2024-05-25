@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import PrivateRoute from "./components/routes/PrivateRoutes";
+import SideMenu from "./components/SideMenu/SideMenu";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +20,15 @@ function App() {
       children: [
         {
           element: <PrivateRoute />,
-          children: [{ path: "/user", element: <User /> }],
+          children: [
+            {
+              path: "/landing-page",
+              element: <User />,
+              children: [
+                { path: "/landing-page/academics", element: <SideMenu /> },
+              ],
+            },
+          ],
         },
         { path: "/", element: <Home /> },
         { path: "/sign-up", element: <SignUpPage /> },

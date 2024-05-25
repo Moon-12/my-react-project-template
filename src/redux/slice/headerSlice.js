@@ -33,7 +33,7 @@ const headerSlice = createSlice({
       })
       .addCase(fetchHeader.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.headers = action.payload;
+        state.headers = action.payload.data;
       })
       .addCase(fetchHeader.rejected, (state, action) => {
         state.status = "failed";
