@@ -14,7 +14,7 @@ export const loginUser = createAsyncThunk(
       );
       const { accessToken } = response.data;
       setToken(accessToken);
-      return accessToken;
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -26,6 +26,10 @@ const authSlice = createSlice({
   initialState: {
     token: null,
     error: null,
+    userId: null,
+    userName: null,
+    email: null,
+    roleId: null,
     status: "idle",
   },
   reducers: {
@@ -44,8 +48,13 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        const { accessToken, email, username, roleId, id } = action.payload;
         state.status = "succeeded";
-        state.token = action.payload;
+        state.token = accessToken;
+        state.roleId = roleId;
+        state.userId = id;
+        state.email = email;
+        state.userName = username;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {

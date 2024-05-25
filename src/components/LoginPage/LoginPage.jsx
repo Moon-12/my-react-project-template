@@ -5,10 +5,14 @@ import { validators } from "../../utils/fieldValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import "./LoginPage.css";
 import { loginUser } from "../../redux/slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHeader } from "../../redux/slice/headerSlice";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const methods = useForm();
+  const roleId = useSelector((state) => state.auth.roleId);
+
   const dispatch = useDispatch();
   const { login } = uiMetaData;
   const navigate = useNavigate();
@@ -20,6 +24,11 @@ const LoginPage = () => {
       console.log(resultAction.payload); // This will contain the error message
     }
   });
+  useEffect(() => {
+    if (roleId) {
+      dispatch(fetchHeader({ roleId }));
+    }
+  }, [roleId]);
   return (
     <div className="login-container">
       <h2>{login.heading}</h2>
