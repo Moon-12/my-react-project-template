@@ -18,7 +18,7 @@
         "type": "password",
         "placeholder": "Password",
         "name": "password",
-        "validatorSelector": "passwordTextValidation"
+        "validatorSelector": "signUpPasswordValidation"
       },
       {
         "type": "password",
@@ -39,16 +39,20 @@
     "heading": "Login",
     "fields": [
       {
+        "id": "email_id",
         "type": "text",
         "placeholder": "Email",
         "name": "email",
-        "validatorSelector": "freeTextValidation"
+        "validatorSelector": "freeTextValidation",
+        "defaultValue": "test20@gmail.com"
       },
       {
+        "id": "password_id",
         "type": "password",
         "placeholder": "Password",
         "name": "password",
-        "validatorSelector": "passwordTextValidation"
+        "validatorSelector": "passwordTextValidation",
+        "defaultValue": "123"
       }
     ]
   }

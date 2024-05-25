@@ -1,10 +1,31 @@
+const requiredValidation = {
+  required: {
+    value: true,
+    message: "required",
+  },
+};
+
+let minlegthValidator = (size) => {
+  return {
+    minLength: {
+      value: size,
+      message: `min ${size} characters`,
+    },
+  };
+};
+
+const passwordPatternValidation = {
+  pattern: {
+    value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+    message:
+      "Password must contain at least one uppercase letter and one special character",
+  },
+};
+
 export const validators = {
   freeTextValidation: {
     validation: {
-      required: {
-        value: true,
-        message: "required",
-      },
+      ...requiredValidation,
       maxLength: {
         value: 30,
         message: "30 characters max",
@@ -13,18 +34,17 @@ export const validators = {
   },
   passwordTextValidation: {
     validation: {
-      required: {
-        value: true,
-        message: "required",
-      },
+      ...requiredValidation,
+    },
+  },
+
+  signUpPasswordValidation: {
+    validation: {
+      ...requiredValidation,
+      ...passwordPatternValidation,
       minLength: {
         value: 8,
         message: "min 8 characters",
-      },
-      pattern: {
-        value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
-        message:
-          "Password must contain at least one uppercase letter and one special character",
       },
     },
   },
@@ -37,10 +57,7 @@ export const validators = {
   },
   dropdownValidation: {
     validation: {
-      required: {
-        value: true,
-        message: "required",
-      },
+      ...requiredValidation,
     },
   },
 };

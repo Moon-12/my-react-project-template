@@ -7,14 +7,16 @@ const HeaderBar = () => {
   return (
     <nav className="header-container">
       <Link to="/">Home</Link>
-      {headers &&
-        headers.map((header) => {
-          return (
-            <Link key={header.id} to={`/landing-page${header.route}`}>
-              {header.header_name}
-            </Link>
-          );
-        })}
+      <div className="header-items">
+        {headers &&
+          headers.map((header) => {
+            return (
+              <Link key={header.id} to={`/landing-page${header.route}`}>
+                {header.header_name}
+              </Link>
+            );
+          })}
+      </div>
       <Link to="/">Logout</Link>
     </nav>
   );
