@@ -2,13 +2,37 @@ import { Link, Outlet } from "react-router-dom";
 import "./HeaderBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenu } from "../../redux/slice/menuSlice";
+import { useEffect } from "react";
+import { clearHeaders, fetchHeader } from "../../redux/slice/headerSlice";
+import { clearToken } from "../../redux/slice/authSlice";
+import { checkLoggedIn } from "../../utils/tokenUtils";
+
 const HeaderBar = () => {
+  const roleId = useSelector(
+    (state) => state.auth.loginResponse && state.auth.loginResponse.roleId
+  );
+  const token = useSelector((state) => state.auth.loginResponse);
+
   const headers = useSelector((state) => state.header.headers);
   const dispatch = useDispatch();
-  console.log(headers);
+
+  useEffect(() => {
+    if (roleId) {
+      dispatch(fetchHeader({ roleId }));
+    } else {
+      dispatch(clearHeaders());
+    }
+  }, [roleId]);
+
   const handleHeaderClick = (headerId) => {
     dispatch(fetchMenu({ headerId }));
   };
+
+  const handleLogoutFn = () => {
+    dispatch(clearToken());
+  };
+  const loginStatus = token ? checkLoggedIn(token.exp) : { isLoggedIn: false };
+
   return (
     <nav className="header-container">
       <Link to="/">Home</Link>
@@ -26,7 +50,11 @@ const HeaderBar = () => {
             );
           })}
       </div>
-      <Link to="/">Logout</Link>
+      {loginStatus.isLoggedIn ? (
+        <Link to="/login" onClick={handleLogoutFn}>
+          Logout
+        </Link>
+      ) : null}
     </nav>
   );
 };

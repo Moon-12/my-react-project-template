@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 const LoginPage = () => {
   const methods = useForm();
-  const roleId = useSelector((state) => state.auth.roleId);
 
   const dispatch = useDispatch();
   const { login } = uiMetaData;
@@ -20,15 +19,9 @@ const LoginPage = () => {
     const resultAction = await dispatch(loginUser({ ...data }));
     if (loginUser.fulfilled.match(resultAction)) {
       navigate("/landing-page");
-    } else {
-      console.log(resultAction.payload); // This will contain the error message
     }
   });
-  useEffect(() => {
-    if (roleId) {
-      dispatch(fetchHeader({ roleId }));
-    }
-  }, [roleId]);
+
   return (
     <div className="login-container">
       <h2>{login.heading}</h2>

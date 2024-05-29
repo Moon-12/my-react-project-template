@@ -25,7 +25,11 @@ const headerSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearHeaders: (state) => {
+      state.headers = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchHeader.pending, (state) => {
@@ -42,4 +46,5 @@ const headerSlice = createSlice({
   },
 });
 
+export const { clearHeaders } = headerSlice.actions;
 export default headerSlice.reducer;

@@ -1,19 +1,23 @@
 // authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { removeSessionToken, setSessionToken } from "../../utils/tokenUtils";
+import {
+  setSessionToken,
+  removeSessionToken,
+  getSessionLoginResponse,
+} from "../../utils/tokenUtils";
 
 // Thunk for logging in
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userCredentials, { rejectWithValue }) => {
     try {
+      //TODO if unexpired token don't call api
       const response = await axios.post(
         "http://localhost:8080/api/auth/login",
         userCredentials
       );
-      const { accessToken } = response.data;
-      setToken(accessToken);
+      setSessionToken(response.data.accessToken);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -24,12 +28,7 @@ export const loginUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    token: null,
-    error: null,
-    userId: null,
-    userName: null,
-    email: null,
-    roleId: null,
+    loginResponse: getSessionLoginResponse(),
     status: "idle",
   },
   reducers: {
@@ -38,7 +37,7 @@ const authSlice = createSlice({
       setSessionToken(action.payload);
     },
     clearToken: (state) => {
-      state.token = null;
+      state.loginResponse = null;
       removeSessionToken();
     },
   },
@@ -48,14 +47,19 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { accessToken, email, username, roleId, id } = action.payload;
-        state.status = "succeeded";
+        const { accessToken } = action.payload;
         state.token = accessToken;
-        state.roleId = roleId;
-        state.userId = id;
-        state.email = email;
-        state.userName = username;
-        state.error = null;
+        state.status = "fulfilled";
+        state.loginResponse = getSessionLoginResponse();
+        // const { accessToken, email, username, roleId, id } = action.payload;
+        //setSessionToken(accessToken);
+        // state.status = "succeeded";
+        // state.token = accessToken;
+        // state.roleId = roleId;
+        // state.userId = id;
+        // state.email = email;
+        // state.userName = username;
+        // state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
