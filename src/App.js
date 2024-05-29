@@ -22,10 +22,11 @@ function App() {
           element: <PrivateRoute />,
           children: [
             {
-              path: "/landing-page",
+              path: "landing-page",
               element: <User />,
               children: [
-                { path: "/landing-page/academics", element: <SideMenu /> },
+                { path: "academics", element: <SideMenu /> },
+                { path: "study-materials", element: <SideMenu /> },
               ],
             },
           ],

@@ -4,7 +4,6 @@ const User = () => {
   return (
     <>
       <div>user page</div>
-      {/* <Outlet /> */}
     </>
   );
 };
