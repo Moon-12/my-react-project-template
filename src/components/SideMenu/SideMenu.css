@@ -26,3 +26,8 @@ ul,
 .active {
   display: block;
 }
+
+.menu-links {
+  text-decoration: none;
+  color: black;
+}

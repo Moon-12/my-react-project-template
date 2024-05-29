@@ -4,7 +4,7 @@ import Input from "../Input/Input";
 import { validators } from "../../utils/fieldValidation";
 import { FormProvider, useForm } from "react-hook-form";
 import "./LoginPage.css";
-import { loginUser } from "../../redux/slice/authSlice";
+import { loginUserThunk } from "../../redux/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHeader } from "../../redux/slice/headerSlice";
 import { useEffect } from "react";
@@ -16,8 +16,8 @@ const LoginPage = () => {
   const { login } = uiMetaData;
   const navigate = useNavigate();
   const submit = methods.handleSubmit(async (data) => {
-    const resultAction = await dispatch(loginUser({ ...data }));
-    if (loginUser.fulfilled.match(resultAction)) {
+    const resultAction = await dispatch(loginUserThunk({ ...data }));
+    if (loginUserThunk.fulfilled.match(resultAction)) {
       navigate("/landing-page");
     }
   });

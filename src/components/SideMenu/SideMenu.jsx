@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./SideMenu.css";
+import { Link } from "react-router-dom";
 const MenuItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -10,18 +11,30 @@ const MenuItem = ({ item }) => {
 
   return (
     <li>
-      <span
-        className={`caret ${isOpen ? "caret-down" : ""}`}
-        onClick={handleToggle}
-      >
-        {item.MENU_NAME}
-      </span>
-      {item.SubMenus && item.SubMenus.length > 0 && (
-        <ul className={`nested ${isOpen ? "active" : ""}`}>
-          {item.SubMenus.map((subItem) => (
-            <MenuItem key={subItem.ID} item={subItem} />
-          ))}
-        </ul>
+      {item.SubMenus && item.SubMenus.length > 0 ? (
+        <>
+          <span
+            className={`caret ${isOpen ? "caret-down" : ""}`}
+            onClick={handleToggle}
+          >
+            {item.MENU_NAME}
+          </span>
+          <ul className={`nested ${isOpen ? "active" : ""}`}>
+            {item.SubMenus.map((subItem) => (
+              <MenuItem key={subItem.ID} item={subItem} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <Link
+          className="menu-links"
+          to={`/landing-page/${item.MENU_NAME.toLowerCase().replace(
+            /\s+/g,
+            "-"
+          )}`}
+        >
+          {item.MENU_NAME}
+        </Link>
       )}
     </li>
   );

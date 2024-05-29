@@ -9,7 +9,6 @@ const RootComp = () => {
 
   // Check if the current path is '/landing-page/academics'
   const showSideMenu = /^\/landing-page\//.test(location.pathname);
-  console.log("s", showSideMenu);
   return (
     <div className="container">
       <header className="header">

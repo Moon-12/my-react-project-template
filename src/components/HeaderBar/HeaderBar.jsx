@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./HeaderBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenu } from "../../redux/slice/menuSlice";
@@ -22,7 +22,7 @@ const HeaderBar = () => {
     } else {
       dispatch(clearHeaders());
     }
-  }, [roleId]);
+  }, [roleId, dispatch]);
 
   const handleHeaderClick = (headerId) => {
     dispatch(fetchMenu({ headerId }));
@@ -35,12 +35,15 @@ const HeaderBar = () => {
 
   return (
     <nav className="header-container">
-      <Link to="/">Home</Link>
+      <Link to="/" className="header-links">
+        Home
+      </Link>
       <div className="header-items">
         {headers &&
           headers.map((header) => {
             return (
               <Link
+                className="header-links"
                 key={header.id}
                 to={`/landing-page${header.route}`}
                 onClick={() => handleHeaderClick(header.id)}
@@ -51,7 +54,7 @@ const HeaderBar = () => {
           })}
       </div>
       {loginStatus.isLoggedIn ? (
-        <Link to="/login" onClick={handleLogoutFn}>
+        <Link to="/login" className="header-links" onClick={handleLogoutFn}>
           Logout
         </Link>
       ) : null}

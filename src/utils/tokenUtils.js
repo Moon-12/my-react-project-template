@@ -12,7 +12,14 @@ export const getSessionLoginResponse = () => {
   if (accessToken) {
     decodedToken = jwtDecode(accessToken);
   }
-  return decodedToken;
+
+  return {
+    ...decodedToken,
+    isLoggedIn:
+      decodedToken && decodedToken.hasOwnProperty("exp")
+        ? checkLoggedIn(decodedToken.exp)
+        : false,
+  };
 };
 
 export const checkLoggedIn = (expiryTime) => {

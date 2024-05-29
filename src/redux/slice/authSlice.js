@@ -8,7 +8,7 @@ import {
 } from "../../utils/tokenUtils";
 
 // Thunk for logging in
-export const loginUser = createAsyncThunk(
+export const loginUserThunk = createAsyncThunk(
   "auth/loginUser",
   async (userCredentials, { rejectWithValue }) => {
     try {
@@ -43,10 +43,10 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginUserThunk.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(loginUserThunk.fulfilled, (state, action) => {
         const { accessToken } = action.payload;
         state.token = accessToken;
         state.status = "fulfilled";
@@ -61,7 +61,7 @@ const authSlice = createSlice({
         // state.userName = username;
         // state.error = null;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUserThunk.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

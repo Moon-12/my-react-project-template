@@ -1,20 +1,29 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../redux/slice/authSlice";
-import { useDispatch } from "react-redux";
+import { loginUserThunk } from "../../redux/slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { checkLoggedIn } from "../../utils/tokenUtils";
 
 const Home = () => {
+  const token = useSelector((state) => state.auth.loginResponse);
+  const loginStatus = token
+    ? checkLoggedIn(token.exp)
+    : { isLoggedIn: false, timeRemaining: 0 };
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // useEffect(() => {
-  //   const loginUserThunk = async () => {
-  //     await dispatch(loginUser());
+  //   const loginUser = async () => {
+  //     await dispatch(loginUserThunk());
   //   };
-  //   loginUserThunk();
+  //   loginUser();
   //   navigate("/landing-page");
-  // }, [dispatch]);
-
+  // }, [dispatch, navigate]);
+  useEffect(() => {
+    if (loginStatus.isLoggedIn) {
+      navigate("/landing-page");
+    } else navigate("/");
+  }, []);
   return (
     <>
       <div>Home page</div>
