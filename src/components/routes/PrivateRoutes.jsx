@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import { clearToken } from "../../redux/slice/authSlice";
 
 const PrivateRoute = () => {
   const loginResponse = useSelector((state) => state.auth.loginResponse);
