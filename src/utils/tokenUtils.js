@@ -25,12 +25,7 @@ export const getSessionLoginResponse = () => {
 export const checkLoggedIn = (expiryTime) => {
   const currentTime = Date.now();
   const timeRemaining = expiryTime * 1000 - currentTime;
-
-  if (timeRemaining <= 0) {
-    return false;
-  } else {
-    return true;
-  }
+  return timeRemaining > 0;
 };
 
 export const removeSessionToken = () => {

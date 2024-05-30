@@ -51,15 +51,6 @@ const authSlice = createSlice({
         state.token = accessToken;
         state.status = "fulfilled";
         state.loginResponse = getSessionLoginResponse();
-        // const { accessToken, email, username, roleId, id } = action.payload;
-        //setSessionToken(accessToken);
-        // state.status = "succeeded";
-        // state.token = accessToken;
-        // state.roleId = roleId;
-        // state.userId = id;
-        // state.email = email;
-        // state.userName = username;
-        // state.error = null;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.status = "failed";
