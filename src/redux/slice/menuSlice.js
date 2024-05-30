@@ -21,11 +21,15 @@ export const fetchMenu = createAsyncThunk(
 const MenuSlice = createSlice({
   name: "menu",
   initialState: {
-    menu: null,
+    menu: [],
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearMenu: (state) => {
+      state.menu = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMenu.pending, (state) => {
@@ -42,4 +46,5 @@ const MenuSlice = createSlice({
   },
 });
 
+export const { clearMenu } = MenuSlice.actions;
 export default MenuSlice.reducer;

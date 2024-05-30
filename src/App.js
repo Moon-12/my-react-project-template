@@ -9,8 +9,10 @@ import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import PrivateRoute from "./components/routes/PrivateRoutes";
-import SideMenu from "./components/SideMenu/SideMenu";
-import UnderGradProgram from "./components/UnderGradProgram/UnderGradProgram";
+import StudyMaterials from "./components/menuItems/StudyMaterials/StudyMaterials";
+import Academics from "./components/menuItems/Academics/Academics";
+import DegreePrograms from "./components/menuItems/Academics/DegreePrograms/DegreePrograms";
+import UnderGradProgram from "./components/menuItems/Academics/DegreePrograms/UnderGradProgram/UnderGradProgram";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,11 +29,22 @@ function App() {
               element: <User />,
               children: [
                 {
-                  path: "undergraduate-programs",
-                  element: <UnderGradProgram />,
+                  path: "academics",
+                  element: <Academics />,
+                  children: [
+                    {
+                      path: "degrees-and-programs",
+                      element: <DegreePrograms />,
+                      children: [
+                        {
+                          path: "undergraduate-programs",
+                          element: <UnderGradProgram />,
+                        },
+                      ],
+                    },
+                    { path: "study-materials", element: <StudyMaterials /> },
+                  ],
                 },
-                { path: "academics", element: <SideMenu /> },
-                { path: "study-materials", element: <SideMenu /> },
               ],
             },
           ],

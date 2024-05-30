@@ -7,15 +7,15 @@ import SideMenu from "./SideMenu/SideMenu";
 const RootComp = () => {
   const location = useLocation();
 
-  // Check if the current path is '/landing-page/academics'
-  const showSideMenu = /^\/landing-page\//.test(location.pathname);
   return (
     <div className="container">
       <header className="header">
         <HeaderBar />
       </header>
       <div className="content-body">
-        <nav className="sidenav">{showSideMenu && <SideMenu />}</nav>
+        <nav className="sidenav">
+          <SideMenu />
+        </nav>
         <main className="content">
           <Outlet />
         </main>

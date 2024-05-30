@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import "./HeaderBar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMenu } from "../../redux/slice/menuSlice";
+import { clearMenu, fetchMenu } from "../../redux/slice/menuSlice";
 import { useEffect } from "react";
-import { clearHeaders, fetchHeader } from "../../redux/slice/headerSlice";
+import {
+  clearHeaders,
+  fetchHeader,
+  setcurrentHeaderRoute,
+} from "../../redux/slice/headerSlice";
 import { clearToken } from "../../redux/slice/authSlice";
 
 const HeaderBar = () => {
@@ -23,11 +27,13 @@ const HeaderBar = () => {
     }
   }, [roleId, dispatch]);
 
-  const handleHeaderClick = (headerId) => {
-    dispatch(fetchMenu({ headerId }));
+  const handleHeaderClick = (header) => {
+    dispatch(setcurrentHeaderRoute({ currentHeaderRoute: header.route }));
+    dispatch(fetchMenu({ headerId: header.id }));
   };
 
   const handleLogoutFn = () => {
+    dispatch(clearMenu());
     dispatch(clearToken());
   };
 
@@ -44,7 +50,7 @@ const HeaderBar = () => {
                 className="header-links"
                 key={header.id}
                 to={`/landing-page${header.route}`}
-                onClick={() => handleHeaderClick(header.id)}
+                onClick={() => handleHeaderClick(header)}
               >
                 {header.header_name}
               </Link>

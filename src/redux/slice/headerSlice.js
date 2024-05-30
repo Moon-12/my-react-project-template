@@ -1,6 +1,6 @@
 // src/features/header/headerSlice.js
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Async thunk for fetching the header
@@ -22,12 +22,18 @@ const headerSlice = createSlice({
   name: "header",
   initialState: {
     headers: null,
+    currentHeaderRoute: "",
     status: "idle",
     error: null,
   },
   reducers: {
+    setcurrentHeaderRoute: (state, action) => {
+      const { currentHeaderRoute } = action.payload;
+      state.currentHeaderRoute = currentHeaderRoute;
+    },
     clearHeaders: (state) => {
       state.headers = null;
+      state.currentHeaderRoute = "";
     },
   },
   extraReducers: (builder) => {
@@ -46,5 +52,5 @@ const headerSlice = createSlice({
   },
 });
 
-export const { clearHeaders } = headerSlice.actions;
+export const { clearHeaders, setcurrentHeaderRoute } = headerSlice.actions;
 export default headerSlice.reducer;
