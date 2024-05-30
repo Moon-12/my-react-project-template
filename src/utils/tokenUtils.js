@@ -27,9 +27,9 @@ export const checkLoggedIn = (expiryTime) => {
   const timeRemaining = expiryTime * 1000 - currentTime;
 
   if (timeRemaining <= 0) {
-    return { isLoggedIn: false, timeRemaining: 0 };
+    return false;
   } else {
-    return { isLoggedIn: true, timeRemaining };
+    return true;
   }
 };
 

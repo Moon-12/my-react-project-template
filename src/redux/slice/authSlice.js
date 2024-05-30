@@ -37,8 +37,8 @@ const authSlice = createSlice({
       setSessionToken(action.payload);
     },
     clearToken: (state) => {
-      state.loginResponse = null;
       removeSessionToken();
+      state.loginResponse = getSessionLoginResponse();
     },
   },
   extraReducers: (builder) => {

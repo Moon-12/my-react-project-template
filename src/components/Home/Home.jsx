@@ -1,14 +1,9 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUserThunk } from "../../redux/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { checkLoggedIn } from "../../utils/tokenUtils";
 
 const Home = () => {
-  const token = useSelector((state) => state.auth.loginResponse);
-  const loginStatus = token
-    ? checkLoggedIn(token.exp)
-    : { isLoggedIn: false, timeRemaining: 0 };
+  const loginResponse = useSelector((state) => state.auth.loginResponse);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +15,7 @@ const Home = () => {
   //   navigate("/landing-page");
   // }, [dispatch, navigate]);
   useEffect(() => {
-    if (loginStatus.isLoggedIn) {
+    if (loginResponse.isLoggedIn) {
       navigate("/landing-page");
     } else navigate("/");
   }, []);

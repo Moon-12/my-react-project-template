@@ -5,13 +5,12 @@ import { fetchMenu } from "../../redux/slice/menuSlice";
 import { useEffect } from "react";
 import { clearHeaders, fetchHeader } from "../../redux/slice/headerSlice";
 import { clearToken } from "../../redux/slice/authSlice";
-import { checkLoggedIn } from "../../utils/tokenUtils";
 
 const HeaderBar = () => {
   const roleId = useSelector(
     (state) => state.auth.loginResponse && state.auth.loginResponse.roleId
   );
-  const token = useSelector((state) => state.auth.loginResponse);
+  const loginResponse = useSelector((state) => state.auth.loginResponse);
 
   const headers = useSelector((state) => state.header.headers);
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const HeaderBar = () => {
   const handleLogoutFn = () => {
     dispatch(clearToken());
   };
-  const loginStatus = token ? checkLoggedIn(token.exp) : { isLoggedIn: false };
 
   return (
     <nav className="header-container">
@@ -53,7 +51,7 @@ const HeaderBar = () => {
             );
           })}
       </div>
-      {loginStatus.isLoggedIn ? (
+      {loginResponse.isLoggedIn ? (
         <Link to="/login" className="header-links" onClick={handleLogoutFn}>
           Logout
         </Link>
