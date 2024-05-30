@@ -6,21 +6,27 @@ import { FormProvider, useForm } from "react-hook-form";
 import "./LoginPage.css";
 import { loginUserThunk } from "../../redux/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHeader } from "../../redux/slice/headerSlice";
 import { useEffect } from "react";
 
 const LoginPage = () => {
   const methods = useForm();
 
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(
+    (state) => state.auth.loginResponse.isLoggedIn
+  );
   const { login } = uiMetaData;
   const navigate = useNavigate();
+
   const submit = methods.handleSubmit(async (data) => {
-    const resultAction = await dispatch(loginUserThunk({ ...data }));
-    if (loginUserThunk.fulfilled.match(resultAction)) {
+    await dispatch(loginUserThunk({ ...data }));
+  });
+
+  useEffect(() => {
+    if (isLoggedIn) {
       navigate("/landing-page");
     }
-  });
+  }, [isLoggedIn]);
 
   return (
     <div className="login-container">
