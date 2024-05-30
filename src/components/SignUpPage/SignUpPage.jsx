@@ -55,7 +55,7 @@ const SignUpPage = () => {
         setResponse(res.data);
       })
       .catch((err) => {
-        console.log(err.data);
+        alert(err.data);
       });
   });
 

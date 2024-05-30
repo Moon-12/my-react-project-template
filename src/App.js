@@ -13,6 +13,12 @@ import StudyMaterials from "./components/menuItems/StudyMaterials/StudyMaterials
 import Academics from "./components/menuItems/Academics/Academics";
 import DegreePrograms from "./components/menuItems/Academics/DegreePrograms/DegreePrograms";
 import UnderGradProgram from "./components/menuItems/Academics/DegreePrograms/UnderGradProgram/UnderGradProgram";
+import Catalog from "./components/menuItems/StudyMaterials/Catalog/Catalog";
+import Calendar from "./components/menuItems/StudyMaterials/Catalog/Calendar/Calendar";
+import Courses from "./components/menuItems/StudyMaterials/Catalog/Courses/Courses";
+import GraduatePrograms from "./components/menuItems/Academics/GraduatePrograms/GraduatePrograms";
+import MIS from "./components/menuItems/Academics/GraduatePrograms/MIS/MIS";
+import CS from "./components/menuItems/Academics/GraduatePrograms/CS/CS";
 
 function App() {
   const router = createBrowserRouter([
@@ -40,9 +46,43 @@ function App() {
                           path: "undergraduate-programs",
                           element: <UnderGradProgram />,
                         },
+                        {
+                          path: "graduate-programs",
+                          element: <GraduatePrograms />,
+                          children: [
+                            {
+                              path: "mis",
+                              element: <MIS />,
+                            },
+                            {
+                              path: "cs",
+                              element: <CS />,
+                            },
+                          ],
+                        },
                       ],
                     },
                     { path: "study-materials", element: <StudyMaterials /> },
+                  ],
+                },
+                {
+                  path: "study-materials",
+                  element: <StudyMaterials />,
+                  children: [
+                    {
+                      path: "catalog",
+                      element: <Catalog />,
+                      children: [
+                        {
+                          path: "calendar",
+                          element: <Calendar />,
+                        },
+                        {
+                          path: "courses",
+                          element: <Courses />,
+                        },
+                      ],
+                    },
                   ],
                 },
               ],
