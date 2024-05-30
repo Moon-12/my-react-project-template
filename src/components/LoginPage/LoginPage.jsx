@@ -19,7 +19,10 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const submit = methods.handleSubmit(async (data) => {
-    await dispatch(loginUserThunk({ ...data }));
+    const resultAction = await dispatch(loginUserThunk({ ...data }));
+    if (loginUserThunk.rejected.match(resultAction)) {
+      alert("Unfortunately, " + resultAction.payload.message);
+    }
   });
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const LoginPage = () => {
                 placeholder={field.placeholder}
                 name={field.name}
                 inpValidation={validators[field.validatorSelector]}
-                defaultValue={field.defaultValue}
+                // defaultValue={field.defaultValue}
               />
             );
           })}

@@ -1,24 +1,15 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const loginResponse = useSelector((state) => state.auth.loginResponse);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const loginUser = async () => {
-  //     await dispatch(loginUserThunk());
-  //   };
-  //   loginUser();
-  //   navigate("/landing-page");
-  // }, [dispatch, navigate]);
+  const isLoggedIn = useSelector(
+    (state) => state.auth.loginResponse.isLoggedIn
+  );
   useEffect(() => {
-    if (loginResponse.isLoggedIn) {
-      navigate("/landing-page");
-    } else navigate("/");
-  }, []);
+    console.count("home loggedin state change");
+  }, [isLoggedIn]);
+
   return (
     <>
       <div>Home page</div>
